@@ -43,9 +43,17 @@ public class Reservation {
 	        return duration.getDays();
 	}
 	
-	public void updateDates(LocalDate checkin, LocalDate checkout) {
+	public String updateDates(LocalDate checkin, LocalDate checkout) {
+		LocalDate now = LocalDate.now();
+		if(checkin.isBefore(now) || checkout.isBefore(now) ) {
+			return " Reservation dates for update must be future dates";
+		}
+		if(! checkout.isAfter(checkin)) {
+			return "Check-out date must be after check-in date";
+		}	
 		this.checkin = checkin;
 		this.chekcout = checkout;
+		return null;
 	}
 
 	@Override
